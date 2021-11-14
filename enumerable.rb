@@ -5,6 +5,8 @@ require 'pry'
 # custome enumerable methods
 module Enumerable
   def my_each
+    return to_enum(:my_each) unless block_given?
+
     i = 0
     until i == length
       yield self[i]
@@ -13,30 +15,32 @@ module Enumerable
     self
   end
 
-  def my_each_with_index
-    i = 0
-    until i == length
+  def my_each_with_index(*args)
+    return to_enum(:my_each_with_index, *args) unless block_given?
+
+    length.times do |i|
       yield self[i], i
-      i += 1
     end
     self
   end
 
   def my_select
+    return to_enum(:my_select) unless block_given?
+
     arr = []
-    my_each { |i| arr.push(i) if yield i}
-    # i = 0
-    # until i == length
-    #   even = yield self[i]
-    #   arr.push(self[i]) if even
-    #   i += 1
-    # end
+    my_each { |i| arr.push(i) if yield i }
     arr
   end
 
-  def my_all?
-    my_each { |i| return false unless yield i }
-    true
+  def my_all?(pattern = nil)
+    if block_given?
+      my_each { |i| return false unless yield i }
+      true
+    elsif pattern.nil?
+      false
+    else # pattern w/o block
+      my_each { |i| return false unless i in pattern }
+    end
   end
 
   def my_any?
@@ -48,5 +52,14 @@ module Enumerable
     my_each { |i| return false if yield i }
     true
   end
+
+  # def match_pattern(obj, pattern)
+  #   case obj
+  #     in ^pattern
+  #     true
+  #   else
+  #     false
+  #   end 
+  # end
 
 end
