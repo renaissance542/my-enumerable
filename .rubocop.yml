@@ -1,0 +1,6 @@
+  AllCops: 
+    TargetRubyVersion: 2.7.2
+    # Determines if a notification for extension libraries should be shown when
+    # rubocop is run. Keys are the name of the extension, and values are an array
+    # of gems in the Gemfile that the extension is suggested for, if not already
+    # included.
