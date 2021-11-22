@@ -7,8 +7,8 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
-    length.times do |i|
-      yield self[i]
+    for el in self do
+      yield el
     end
     self
   end
@@ -94,7 +94,7 @@ module Enumerable
   # inject(initial) { |memo, obj| block } → obj
   # inject { |memo, obj| block } → obj
   def my_inject(*args)
-    memo = self.first
+    memo = first
     args.each do |arg|
       if arg.instance_of?(Symbol)
         my_each { |i| memo = memo.method(arg).(i) }

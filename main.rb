@@ -207,7 +207,7 @@ puts arr.my_inject(0.5, :*)
 
 hsh = { a: 1, b: 2, c: 3 }
 
-# puts 'hsh.inject(0) { |sum, (k, v)| sum + v }'
-# p hsh.inject(0) { |sum, (k, v)| sum + v } 
-# # binding.pry
-# p hsh.my_inject(0) { |sum, (k, v)| sum + v } 
+puts 'hsh.inject(0) { |sum, (k, v)| sum + v }'
+p hsh.inject(0) { |sum, (k, v)| sum + v } 
+# binding.pry
+p hsh.my_inject(0) { |sum, (k, v)| sum + v } 
